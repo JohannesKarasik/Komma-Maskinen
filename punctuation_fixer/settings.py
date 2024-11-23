@@ -130,22 +130,3 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 
 
-server {
-    listen 80;
-    server_name 142.93.71.103;
-
-    location = /favicon.ico { access_log off; log_not_found off; }
-    location /static/ {
-        root /home/clinton/django_blog;
-    }
-
-
-       location /media/ {
-        root /home/clinton/django_blog;
-    }
-
-    location / {
-        include proxy_params;
-        proxy_pass http://unix:/home/clinton/punctuation_fixer.sock;
-    }
-}
