@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punctuation Fixer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .editor-container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+        }
+        #text-editor {
+            width: 100%;
+            height: 300px;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="editor-container">
+    <h2>Punctuation Fixer</h2>
+
+    <!-- Form with CSRF token for Django -->
+    <form method="POST" id="punctuation-form">
+        {% csrf_token %}
+        <textarea id="text-editor" name="text" placeholder="Paste your text here...">{{ text }}</textarea><br>
+        <button class="btn" id="fix-btn" type="button">Fix Punctuation</button>
+    </form>
+</div>
+
+<script>
+    // Event listener for the "Fix Punctuation" button
+    document.getElementById('fix-btn').addEventListener('click', async () => {
+        const textInput = document.getElementById('text-editor').value;
+
+        // Check if text input is empty
+        if (!textInput.trim()) {
+            alert('Please enter some text');
+            return;
+        }
+
+        try {
+            // Send the request to the backend to process the text
+            const response = await fetch('/process_text', { // Relative URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value // CSRF token
+                },
+                body: JSON.stringify({ text: textInput })
+            });
+
+            // Check if the response is successful
+            if (response.ok) {
+                const data = await response.json();
+                // Update the text in the same textarea with the corrected text
+                document.getElementById('text-editor').value = data.corrected_text;
+            } else {
+                const errorData = await response.json();
+                alert('Error: ' + (errorData.error || 'An error occurred'));
+            }
+
+        } catch (error) {
+            console.error('Network Error:', error);
+            alert('Error: Unable to connect to the server');
+        }
+    });
+</script>
+
+</body>
+</html>

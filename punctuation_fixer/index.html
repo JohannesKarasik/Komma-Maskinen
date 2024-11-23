@@ -1,0 +1,47 @@
+<!-- fixer/templates/fixer/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punctuation Fixer</title>
+</head>
+<body>
+    <h1>Punctuation Fixer</h1>
+    <form method="POST" enctype="multipart/form-data" id="fixForm">
+        {% csrf_token %}
+        <textarea id="text-editor" name="text" placeholder="Paste your text here...">{{ text }}</textarea><br>
+        <input type="file" name="document"><br>
+        <button type="submit">Fix Punctuation</button>
+    </form>
+
+    <script>
+        // Event listener for form submission
+        const form = document.getElementById("fixForm");
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const textInput = document.getElementById("text-editor").value;
+
+            // Send the text to the server for processing
+            const response = await fetch("", {  // POST request to the same URL
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,  // CSRF token
+                },
+                body: JSON.stringify({ text: textInput })  // Send the text data as JSON
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // Update the text area with the corrected text
+                document.getElementById("text-editor").value = data.corrected_text;
+            } else {
+                const errorData = await response.json();
+                alert('Error: ' + (errorData.error || 'An error occurred'));
+            }
+        });
+    </script>
+</body>
+</html>
