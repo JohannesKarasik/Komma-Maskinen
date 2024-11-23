@@ -67,6 +67,7 @@
             width: 100%;
             max-width: 900px;
             margin-top: 20px;
+            margin-bottom: 20px;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -75,8 +76,12 @@
         }
 
         .maintext {
-            margin-top: 50px;
+            
             color: rgb(48, 48, 48);
+        }
+
+        .inputf{
+            display: none;
         }
 
         /* Wrap the textarea and copy button */
@@ -101,7 +106,7 @@
         /* Copy Button positioning */
         #copy-btn {
             position: absolute;
-            bottom: 30px;
+            bottom: 0px;
             right: 10px;
             padding: 10px 20px;
             background-color: #057e6f;
@@ -109,6 +114,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+        }
+
+        #copy-btn {
+            display: none; /* Initially hidden */
         }
 
         #copy-btn:hover {
@@ -122,6 +131,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 30px;
         }
 
         button:hover {
@@ -130,32 +140,43 @@
 
         /* Footer styling */
         footer {
-            width: 100%;
-            background-color: #057e6f;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.2em;
-        }
+    width: 100%;
+    background-color: #057e6f;
+    color: white;
+    padding: 50px;
+    text-align: center;
+    font-size: 1.2em;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Align items in a column */
+    align-items: center; /* Horizontally center the content */
+    justify-content: center; /* Vertically center the content */
+}
 
-        footer h3 {
-            margin-bottom: 10px;
-        }
+footer .footer-content {
+    max-width: 1200px; /* Ensure the content doesn't stretch too wide */
+    margin: 0 auto; /* Center horizontally within the footer */
+    width: 90%; /* Optional: Allow some flexibility in smaller screens */
+    
+}
 
-        footer p {
-            margin: 5px 0;
-        }
+footer h3 {
+    margin-bottom: 10px;
+}
 
-        footer a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+footer p {
+    margin: 5px 0;
+    text-align: center;
+}
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
 
+footer a:hover {
+    text-decoration: underline;
+}
         /* Responsive Design */
         @media (max-width: 768px) {
             header img {
@@ -212,14 +233,14 @@
 
     <!-- Header Section with Logo on the Left -->
     <header>
-        <img src="{% static 'images/komma1.jpg' %}" alt="Logo">           
+        <img src="{% static 'images/dansklogo.png' %}" alt="Logo">           
     </header>
 
     <!-- Main Section with Title and Text Block -->
     <div class="editor-container">
         <form method="POST" enctype="multipart/form-data" id="fixForm">
             <div class="main">
-                <div class="title">Ret kommatering i din tkst sikkert og hurtigt</div>
+                <div class="title">Ret kommatering i din tekst sikkert og hurtigt</div>
             </div>
             {% csrf_token %}
         
@@ -227,12 +248,12 @@
             <div class="textarea-wrapper">
                 <textarea id="text-editor" name="text" placeholder="Indsæt din tekst her...">{{ text }}</textarea><br>
                 <!-- Copy Button Inside Textarea Wrapper -->
-                <button type="button" id="copy-btn">Copy Text</button>
+                <button type="button" id="copy-btn">Kopier tekst</button>
             </div>
 
-            <input type="file" id="fileInput" name="document" />
+            <input class="inputf" type="file" id="fileInput" name="document" />
 
-            <button type="submit"> mine kommaer</button>
+            <button class="fix-btn" type="submit">Ret mine kommaer</button>
 
             <div class="text-block">
                 <p class="maintext">At sætte komma i din tekst kan være en udfordring for mange. Det kan være svært at vide præcis, hvor kommaet skal placeres, og det kan tage tid at få det helt rigtigt. Men med vores værktøj slipper du for bekymringerne!</p>
@@ -244,41 +265,66 @@
 
     <!-- Footer Section -->
     <footer>
-        <h3>Om Os s s</h3>
-        <p>Vi er ikeret til at gøre korrekt kommatering nemt og hurtigt. Vores værktøj anvender avanceret teknologi til at rette kommafejl i din tekst, så du kan fokusere på det, der betyder mest – indholdet!</p>
-        <p>Har du spørgsmål? Kontakt os på: <a href="mailto:info@startkomma.dk">info@startkomma.dk</a></p>
+        <div class="footer-content">
+            <h3>SprogHjælp.dk</h3>
+            <p>
+                Vi er dedikeret til at gøre korrekt kommatering nemt og hurtigt. 
+Vores værktøj hjælper dig med at rette kommafejl i din tekst, så du kan fokusere på det, der betyder mest – indholdet!
+            </p>
+            <p>
+                Har du spørgsmål? Kontakt os på: 
+                <a href="mailto:info@sproghjælp.dk">info@sproghjælp.dk</a>
+            </p>
+        </div>
     </footer>
 
     <script>
         // Event listener for the form submission
         const form = document.getElementById("fixForm");
         form.addEventListener("submit", async (event) => {
-            event.preventDefault();  // Prevent form from reloading the page
+            event.preventDefault(); // Prevent form from reloading the page
     
-            const textInput = document.getElementById("text-editor").value;
+            const textInput = document.getElementById("text-editor");
             const fileInput = document.querySelector("input[type='file']");
     
+            // Check if the textarea is empty
+            if (!textInput.value.trim()) {
+                // Display the error message in the placeholder and return
+                textInput.value = ""; // Clear any accidental whitespace
+                textInput.placeholder = "Indsæt din tekst her";
+                textInput.style.border = "1px solid red"; // Optional: Highlight the error visually
+                return;
+            } else {
+                // Reset the placeholder and border color if the input is valid
+                textInput.placeholder = "Indsæt din tekst her...";
+                textInput.style.border = "1px solid #ccc";
+            }
+    
             let formData = new FormData();
-            formData.append('text', textInput);  // Add text data if available
+            formData.append('text', textInput.value); // Add text data if available
             if (fileInput.files[0]) {
-                formData.append('document', fileInput.files[0]);  // Add file data if available
+                formData.append('document', fileInput.files[0]); // Add file data if available
             }
     
             try {
                 // Send the text and/or file to the server for processing
-                const response = await fetch("", {  // POST request to the same URL
+                const response = await fetch("", { // POST request to the same URL
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,  // CSRF token
+                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value, // CSRF token
                     },
-                    body: formData  // Send the FormData object
+                    body: formData // Send the FormData object
                 });
     
                 if (response.ok) {
                     const data = await response.json();
                     if (data.corrected_text) {
                         // If corrected text is returned, update the same textarea
-                        document.getElementById("text-editor").value = data.corrected_text;
+                        textInput.value = data.corrected_text;
+    
+                        // Show the "Kopier tekst" button
+                        const copyButton = document.getElementById('copy-btn');
+                        copyButton.style.display = 'inline-block';
                     }
                     if (data.file_url) {
                         // If a corrected file is returned, provide a download link
@@ -286,7 +332,7 @@
                         downloadLink.href = data.file_url;
                         downloadLink.textContent = "Download Corrected Document";
                         downloadLink.target = "_blank";
-                        document.body.appendChild(downloadLink);  // Append the download link to the body
+                        document.body.appendChild(downloadLink); // Append the download link to the body
                     }
                 } else {
                     const errorData = await response.json();
@@ -298,21 +344,21 @@
         });
     
         // Event listener for the copy button
-        document.getElementById('copy-btn').addEventListener('click', function() {
+        document.getElementById('copy-btn').addEventListener('click', function () {
             const textArea = document.getElementById('text-editor');
             const textToCopy = textArea.value; // Get the text from the textarea
-            
+    
             // Use the Clipboard API to copy text to the clipboard
-            navigator.clipboard.writeText(textToCopy).then(function() {
+            navigator.clipboard.writeText(textToCopy).then(function () {
                 // Change the button text to "Copied" when text is copied
                 const copyButton = document.getElementById('copy-btn');
-                copyButton.textContent = 'Copied'; // Change button text
+                copyButton.textContent = 'Tekst kopieret'; // Change button text
     
-                // After a short delay, revert the button text back to "Copy Text"
-                setTimeout(function() {
-                    copyButton.textContent = 'Copy Text';
+                // After a short delay, revert the button text back to "Kopier tekst"
+                setTimeout(function () {
+                    copyButton.textContent = 'Kopier tekst';
                 }, 1000); // 1 second delay
-            }).catch(function(err) {
+            }).catch(function (err) {
                 console.log('Error copying text: ', err);
             });
         });
