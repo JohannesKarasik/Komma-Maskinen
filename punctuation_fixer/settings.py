@@ -147,5 +147,6 @@ server {
     location / {
         include proxy_params;
         proxy_pass http://unix:/home/clinton/punctuation_fixer.sock;
+
     }
 }
