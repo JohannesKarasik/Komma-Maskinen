@@ -1,4 +1,4 @@
-#!/Users/johanneskarasik/Desktop/commas/venv/bin/python3.9
+#!/home/clinton/Komma-Maskinen/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
