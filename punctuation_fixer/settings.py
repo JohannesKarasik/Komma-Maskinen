@@ -112,3 +112,40 @@ STATIC_ROOT = BASE_DIR/'static'
 # If you are using images outside the 'static' directory, you'll need to configure media as well
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
+
+
+
+#[Unit]
+#Description=gunicorn daemon
+#After=network.target
+
+#[Service]
+#User=clinton
+#Group=www-data
+#WorkingDirectory=/home/clinton/Komma-Maskinen
+#ExecStart=/home/clinton/Komma-Maskinen/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/clineton/punctuation_fixer.sock punctuation_fixer.wsgi:application
+
+#[Install]
+#WantedBy=multi-user.target
+
+
+
+server {
+    listen 80;
+    server_name 142.93.71.103;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/clinton/django_blog;
+    }
+
+
+       location /media/ {
+        root /home/clinton/django_blog;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/clinton/punctuation_fixer.sock;
+    }
+}
