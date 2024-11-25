@@ -17,7 +17,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '142.93.71.103',
+    '165.227.67.14',
     'xn--danskhjlp-m3a.dk',  # Add this line
     'www.xn--danskhjlp-m3a.dk',  # Add this if applicable
 ]
