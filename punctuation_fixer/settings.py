@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'fixer',  # Your app
     'django.contrib.sitemaps',
-
 ]
 
 MIDDLEWARE = [
