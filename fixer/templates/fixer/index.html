@@ -36,6 +36,13 @@
             height: auto;
         }
 
+        .mistake-highlight {
+            background-color: rgb(255, 0, 0) !important; /* Highlight background for mistakes */
+            font-weight: bold; /* Emphasize text */
+            border-radius: 3px; /* Optional rounded corners */
+            padding: 0 2px; /* Add some spacing around the text */
+}
+
         .title {
             font-size: 2.5em;
             font-weight: bold;
@@ -51,6 +58,28 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* Class for highlighted mistakes */
+        .mistake-highlight {
+            background-color: rgb(170, 32, 32); /* Highlight background for mistakes */
+            font-weight: bold; /* Emphasize the text */
+            border-radius: 3px; /* Optional: Rounded edges for better visuals */
+        }
+
+
+        /* Styling for the text editor */
+        #text-editor {
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            font-family: Arial, sans-serif;
+            color: #000;
+            background-color: #fff;
+            resize: vertical; /* Allow vertical resizing */
+            overflow-y: auto;
         }
 
         .text-block {
@@ -81,9 +110,35 @@
             color: rgb(48, 48, 48);
         }
 
+        .fix-btn{
+            margin-top: 15px;
+        }
+
         .inputf{
             display: none;
         }
+
+
+        #text-editor {
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.5;
+        font-family: Arial, sans-serif;
+        color: #000;
+        background-color: #fff;
+        resize: vertical; /* Optional: Allow resizing */
+        overflow-y: auto;
+        min-height: 200px; /* Ensure a minimum height */
+        outline: none; /* Remove the focus outline */
+        white-space: pre-wrap; /* Preserve whitespace formatting */
+    }
+
+    #text-editor:empty:before {
+        content: attr(placeholder); /* Show placeholder text */
+        color: #aaa;
+        font-style: italic;
+}
 
         /* Wrap the textarea and copy button */
         .textarea-wrapper {
@@ -108,8 +163,8 @@
         #copy-btn {
             position: absolute;
             bottom: 0px;
+            margin-bottom: 10px;
             right: 10px;
-            padding: 10px 20px;
             background-color: #057e6f;
             color: white;
             border: none;
@@ -246,41 +301,41 @@ footer a:hover {
     <header>
         <img src="{% static 'images/dansklogo.png' %}" alt="Logo">           
     </header>
-
+    
     <!-- Main Section with Title and Text Block -->
     <div class="editor-container">
         <form method="POST" enctype="multipart/form-data" id="fixForm">
             <div class="main">
-                <div class="title">Ret kommatering i din tekst sikkert og hurtigt</div>
+                <div class="title">Ret kommatering og stavefejl i din tekst sikkert og hurtigt</div>
             </div>
             {% csrf_token %}
         
-            <!-- Textarea with Copy Button Inside -->
+            <!-- Text Editor with Copy Button Inside -->
             <div class="textarea-wrapper">
-                <textarea id="text-editor" name="text" placeholder="Indsæt din tekst her...">{{ text }}</textarea><br>
+                <div id="text-editor" name="text" placeholder="Indsæt din tekst her..." contenteditable="true"></div>
                 <!-- Copy Button Inside Textarea Wrapper -->
                 <button type="button" id="copy-btn">Kopier tekst</button>
             </div>
-
+    
             <input class="inputf" type="file" id="fileInput" name="document" />
-
+    
             <button class="fix-btn" type="submit">Ret mine kommaer</button>
-
+    
             <div class="text-block">
-                <p class="maintext">At sætte komma i din tekst kan være en udfordring for mange. Det kan være svært at vide præcis, hvor kommaet skal placeres, og det kan tage tid at få det helt rigtigt. Men med vores værktøj slipper du for bekymringerne!</p>
-                <p class="maintext">Vi sætter <span class="keywords">startkomma</span>, så du aldrig skal bekymre dig om at finde den rette komma placering. Med vores præcise komma sætter teknologi kan du være sikker på, at din tekst bliver korrekt og let at læse.</p>
-                <p class="maintext">Uanset om du skriver et kort notat eller en længere artikel, kan du stole på, at vores system håndterer kommaerne hurtigt og effektivt, så du kan fokusere på det, der virkelig betyder noget: indholdet.</p>
+                <p class="maintext">At sætte kommaer og rette stavefejl i din tekst kan være en udfordring for mange. Det kan være svært at vide præcis, hvor kommaet skal placeres, og hvordan stavefejl skal undgås. Det kan også tage tid at få det helt rigtigt. Men med vores værktøj til stavekontrol og komma retter slipper du for bekymringerne!</p>
+                <p class="maintext">Vi sætter <span class="keywords">startkomma</span> og hjælper dig med at finde og rette stavefejl, så du aldrig skal bekymre dig om korrekt kommatering eller stavekontrol. Med vores præcise teknologi til at rette kommaer og stavefejl kan du være sikker på, at din tekst bliver fejlfri og let at læse.</p>
+                <p class="maintext">Uanset om du skriver et kort notat eller en længere artikel, kan du stole på, at vores system håndterer stavekontrol og kommatering hurtigt og effektivt. Du kan fokusere på det, der virkelig betyder noget: indholdet, mens vi sørger for, at din tekst er fejlfri med vores <span class="keywords">komma retter</span> og stavekontrol.</p>
             </div>
         </form>
     </div>
-
+    
     <!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <h3>SprogHjælp.dk</h3>
             <p>
                 Vi er dedikeret til at gøre korrekt kommatering nemt og hurtigt. 
-Vores værktøj hjælper dig med at rette kommafejl i din tekst, så du kan fokusere på det, der betyder mest – indholdet!
+                Vores værktøj hjælper dig med at rette kommafejl i din tekst, så du kan fokusere på det, der betyder mest – indholdet!
             </p>
             <p>
                 Har du spørgsmål? Kontakt os på: 
@@ -290,87 +345,106 @@ Vores værktøj hjælper dig med at rette kommafejl i din tekst, så du kan foku
     </footer>
 
     <script>
-        // Event listener for the form submission
         const form = document.getElementById("fixForm");
+    
         form.addEventListener("submit", async (event) => {
-            event.preventDefault(); // Prevent form from reloading the page
+            event.preventDefault();
     
             const textInput = document.getElementById("text-editor");
             const fileInput = document.querySelector("input[type='file']");
     
-            // Check if the textarea is empty
-            if (!textInput.value.trim()) {
-                // Display the error message in the placeholder and return
-                textInput.value = ""; // Clear any accidental whitespace
-                textInput.placeholder = "Indsæt din tekst her";
-                textInput.style.border = "1px solid red"; // Optional: Highlight the error visually
+            // Check if the contenteditable div is empty
+            if (!textInput.innerText.trim()) {
+                textInput.innerText = ""; 
+                textInput.setAttribute("placeholder", "Indsæt din tekst her");
+                textInput.style.border = "1px solid red"; 
                 return;
             } else {
-                // Reset the placeholder and border color if the input is valid
-                textInput.placeholder = "Indsæt din tekst her...";
+                textInput.setAttribute("placeholder", "Indsæt din tekst her...");
                 textInput.style.border = "1px solid #ccc";
             }
     
             let formData = new FormData();
-            formData.append('text', textInput.value); // Add text data if available
+            formData.append('text', textInput.innerText); // Send contenteditable text
             if (fileInput.files[0]) {
-                formData.append('document', fileInput.files[0]); // Add file data if available
+                formData.append('document', fileInput.files[0]); // Include file if present
             }
     
             try {
-                // Send the text and/or file to the server for processing
-                const response = await fetch("", { // POST request to the same URL
+                const response = await fetch("http://127.0.0.1:8000/", {
                     method: "POST",
                     headers: {
-                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value, // CSRF token
+                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
                     },
-                    body: formData // Send the FormData object
+                    body: formData
                 });
     
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.corrected_text) {
-                        // If corrected text is returned, update the same textarea
-                        textInput.value = data.corrected_text;
     
-                        // Show the "Kopier tekst" button
-                        const copyButton = document.getElementById('copy-btn');
-                        copyButton.style.display = 'inline-block';
+                    // Update text editor with corrected text and highlight invalid words
+                    if (data.corrected_text) {
+                        highlightInvalidWords(data.corrected_text, data.invalid_words);
                     }
+    
+                    // Display the copy button if corrections were made
+                    const copyButton = document.getElementById('copy-btn');
+                    copyButton.style.display = 'inline-block';
+    
+                    // Provide a file download link if available
                     if (data.file_url) {
-                        // If a corrected file is returned, provide a download link
                         const downloadLink = document.createElement("a");
                         downloadLink.href = data.file_url;
                         downloadLink.textContent = "Download Corrected Document";
                         downloadLink.target = "_blank";
-                        document.body.appendChild(downloadLink); // Append the download link to the body
+                        document.body.appendChild(downloadLink);
                     }
                 } else {
                     const errorData = await response.json();
                     alert('Error: ' + (errorData.error || 'An error occurred'));
                 }
             } catch (error) {
-                alert("Error: " + error);
+                console.error("Fetch Error:", error);
+                alert("Error: " + error.message);
             }
         });
     
-        // Event listener for the copy button
-        document.getElementById('copy-btn').addEventListener('click', function () {
-            const textArea = document.getElementById('text-editor');
-            const textToCopy = textArea.value; // Get the text from the textarea
+        function highlightInvalidWords(correctedText, invalidWords) {
+            const textEditor = document.getElementById("text-editor");
     
-            // Use the Clipboard API to copy text to the clipboard
+            // Start with corrected text
+            let highlightedText = correctedText;
+    
+            // Sort invalid words by their start position in descending order to avoid offset issues
+            invalidWords.sort((a, b) => b.start - a.start);
+    
+            // Replace invalid words with span elements
+            invalidWords.forEach(({ word, start, end }) => {
+                const wordSpan = `<span class="mistake-highlight">${word}</span>`;
+                highlightedText =
+                    highlightedText.slice(0, start) +
+                    wordSpan +
+                    highlightedText.slice(end);
+            });
+    
+            // Replace the text in the contenteditable div with highlighted content
+            textEditor.innerHTML = highlightedText;
+        }
+    
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            const textEditor = document.getElementById('text-editor');
+            const textToCopy = textEditor.innerText;
+    
+            // Copy text to clipboard
             navigator.clipboard.writeText(textToCopy).then(function () {
-                // Change the button text to "Copied" when text is copied
                 const copyButton = document.getElementById('copy-btn');
                 copyButton.textContent = 'Tekst kopieret'; // Change button text
     
-                // After a short delay, revert the button text back to "Kopier tekst"
                 setTimeout(function () {
-                    copyButton.textContent = 'Kopier tekst';
-                }, 1000); // 1 second delay
+                    copyButton.textContent = 'Kopier tekst'; // Revert button text after 1 second
+                }, 1000);
             }).catch(function (err) {
-                console.log('Error copying text: ', err);
+                console.error("Error copying text:", err);
             });
         });
     </script>
