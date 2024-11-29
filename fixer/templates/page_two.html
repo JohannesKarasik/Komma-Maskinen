@@ -1,0 +1,562 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ret dine stavefejl – Sikkert, hurtigt og gratis</title>
+    <meta name="description" content="Ret dine stavefejl nemt, hurtigt og helt gratis med vores online værktøj. Få en fejlfri og professionel tekst på få sekunder.">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+                /* Prevent horizontal scrolling */
+        body {
+            overflow-x: hidden; /* Hides horizontal overflow */
+            margin: 0; /* Ensures no extra spacing on the sides */
+            padding: 0; /* Resets default padding */
+        }
+
+        /* Ensure all elements stay within the viewport */
+        * {
+            box-sizing: border-box; /* Prevents elements from expanding outside their container */
+        }
+
+        /* Styling the header */
+        header {
+            width: 100%;
+            height: 10vh;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 20px;
+        }
+
+        header img {
+            width: 350px;
+            height: auto;
+        }
+
+        .mistake-highlight {
+            background-color: rgb(255, 0, 0) !important; /* Highlight background for mistakes */
+            font-weight: bold; /* Emphasize text */
+            border-radius: 3px; /* Optional rounded corners */
+            padding: 0 2px; /* Add some spacing around the text */
+}
+
+        .title {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            color: #057e6f;
+            margin-bottom: 20px;
+        }
+
+        .main {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* Class for highlighted mistakes */
+        .mistake-highlight {
+            background-color: rgb(170, 32, 32); /* Highlight background for mistakes */
+            font-weight: bold; /* Emphasize the text */
+            border-radius: 3px; /* Optional: Rounded edges for better visuals */
+        }
+
+
+        /* Styling for the text editor */
+        #text-editor {
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+            font-family: Arial, sans-serif;
+            color: #000;
+            background-color: #fff;
+            resize: vertical; /* Allow vertical resizing */
+            overflow-y: auto;
+        }
+
+        .text-block {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: black;
+        }
+
+        .keywords {
+            font-weight: bold;
+            color: #057e6f;
+        }
+
+        .editor-container {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        /* General Header Styling */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hamburger Menu Button Styling */
+        .hamburger-menu {
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #ffffff;
+            background-color: #057e6f;
+            margin: 0px;
+            padding-top: 0px;
+            padding-bottom: 2px;
+            padding-left: 5px;
+            padding-right: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* Header Styling */
+        /* Header Styling */
+
+
+        /* Navigation Links - Hidden by Default */
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            background-color: #ffffff;
+            position: absolute;
+            top: 10vh;
+            right: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 200px;
+        }
+
+        .nav-links.active {
+            display: flex; /* Show menu when active */
+        }
+
+        .nav-links ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li {
+            padding: 10px 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #057e6f;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Ensure the Hamburger is Always Visible */
+        @media (min-width: 769px) {
+            .hamburger-menu {
+                display: block;
+            }
+        }
+
+        .maintext {
+            
+            color: rgb(48, 48, 48);
+        }
+
+        .fix-btn{
+            margin-top: 15px;
+        }
+
+        .inputf{
+            display: none;
+        }
+
+
+        #text-editor {
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-size: 16px;
+        line-height: 1.5;
+        font-family: Arial, sans-serif;
+        color: #000;
+        background-color: #fff;
+        resize: vertical; /* Optional: Allow resizing */
+        overflow-y: auto;
+        min-height: 200px; /* Ensure a minimum height */
+        outline: none; /* Remove the focus outline */
+        white-space: pre-wrap; /* Preserve whitespace formatting */
+    }
+
+    #text-editor:empty:before {
+        content: attr(placeholder); /* Show placeholder text */
+        color: #aaa;
+        font-style: italic;
+}
+
+        /* Wrap the textarea and copy button */
+        .textarea-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+            padding: 20px 40px 20px 20px; /* Add padding for button space */
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Copy Button positioning */
+        #copy-btn {
+            position: absolute;
+            bottom: 0px;
+            margin-bottom: 10px;
+            right: 10px;
+            background-color: #057e6f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #copy-btn {
+            display: none; /* Initially hidden */
+        }
+
+        #copy-btn:hover {
+            background-color: #056f62;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #057e6f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 30px;
+        }
+
+        button:hover {
+            background-color: #056f62;
+        }
+
+        /* Footer styling */
+        footer {
+    width: 100%;
+    background-color: #057e6f;
+    color: white;
+    padding: 50px;
+    text-align: center;
+    font-size: 1.2em;
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Align items in a column */
+    align-items: center; /* Horizontally center the content */
+    justify-content: center; /* Vertically center the content */
+}
+
+footer .footer-content {
+    max-width: 1200px; /* Ensure the content doesn't stretch too wide */
+    margin: 0 auto; /* Center horizontally within the footer */
+    width: 90%; /* Optional: Allow some flexibility in smaller screens */
+    
+}
+
+footer h3 {
+    margin-bottom: 10px;
+}
+
+footer p {
+    margin: 5px 0;
+    text-align: center;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header img {
+                width: 120px;
+            }
+
+            .title {
+                font-size: 2em;
+            }
+
+            .text-block {
+                font-size: 1em;
+            }
+
+            .main {
+                margin: 20px;
+                padding: 15px;
+            }
+
+            textarea {
+                width: 100%;
+                padding: 10px;
+                font-size: 1rem;
+            }
+
+            .editor-container {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8em;
+            }
+
+            .main {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            textarea {
+                width: 100%;
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .editor-container {
+                padding: 5px;
+            }
+        }
+    </style>
+        <!-- Standard Favicon -->
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="x-icon">
+
+    <!-- PNG Favicons -->
+
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/favicon-16x16.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'icons/favicon-32x32.png' %}">
+<link rel="icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'icons/apple-touch-icon.png' %}">
+<link rel="manifest" href="{% static 'icons/site.webmanifest' %}">
+</head>
+<body>
+
+    <!-- Header Section with Logo on the Left -->
+    <header>
+        <img src="{% static 'images/dansklogo.png' %}" alt="Logo">
+        <button class="hamburger-menu" aria-label="Toggle navigation">
+            &#9776;
+        </button>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="{% url 'index' %}">Kommaretter</a></li>
+                <li><a href="{% url 'page_two' %}">Stavekontrolr</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Main Section with Title and Text Block -->
+    <div class="editor-container">
+        <form method="POST" enctype="multipart/form-data" id="fixForm">
+            <div class="main">
+                <div class="title">Ret stavefejl i din tekst sikkert og hurtigt</div>
+            </div>
+            {% csrf_token %}
+        
+            <!-- Text Editor with Copy Button Inside -->
+            <div class="textarea-wrapper">
+                <div id="text-editor" name="text" placeholder="Indsæt din tekst her..." contenteditable="true"></div>
+                <!-- Copy Button Inside Textarea Wrapper -->
+                <button type="button" id="copy-btn">Kopier tekst</button>
+            </div>
+    
+            <input class="inputf" type="file" id="fileInput" name="document" />
+    
+            <button class="fix-btn" type="submit">Ret mine kommaer</button>
+    
+            <div class="text-block">
+                <p class="maintext">At rette <span class="keywords"> stavefejl</span> og <span class="keywords">grammatiske</span> fejl kan være en udfordring for mange. Selv små fejl kan have stor betydning for, hvordan din tekst opfattes, og det kan være svært at opdage dem alle på egen hånd. Med vores værktøj til <span class="keywords">stavekontrol</span> kan du nemt og hurtigt få hjælp til at rette stavefejl og sikre, at din tekst fremstår fejlfri og professionel.</p>
+                <p class="maintext">DanskHjælp gør det nemt at rette grammatik og stavefejl på få sekunder. Uanset om du skriver en e-mail, en opgave, eller en artikel, analyserer vores system din tekst grundigt og sørger for, at alle fejl bliver rettet. Når vi hjælper dig med at rette stavefejl, sikrer vi samtidig, at grammatikken i din tekst er korrekt, så du kan skrive med selvtillid og uden bekymringer.</p>
+                <p class="maintext">Med vores brugervenlige værktøj bliver det let at håndtere selv komplekse <span class="keywords">grammatiske regler</span>. Vi hjælper dig med at rette grammatik, finde stavefejl og optimere din tekst, så den fremstår klar, præcis og let at læse. På den måde slipper du for at bruge unødig tid på sproglige detaljer og kan i stedet fokusere på indholdet.</p>
+                <p class="maintext">Prøv vores løsning i dag, og lad os hjælpe dig med at rette <span class="keywords">stavefejl</span> og <span class="keywords">grammatik</span>, så din tekst bliver fejlfri. Det har aldrig været nemmere at levere en tekst, der er korrekt og professionel fra start til slut. Giv din tekst det sidste touch med vores værktøj – hurtigt, effektivt og præcist!</p>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <h3>SprogHjælp.dk</h3>
+            <p>
+                Vi er dedikeret til at gøre korrekt kommatering nemt og hurtigt. 
+                Vores værktøj hjælper dig med at rette kommafejl i din tekst, så du kan fokusere på det, der betyder mest – indholdet!
+            </p>
+            <p>
+                Har du spørgsmål? Kontakt os på: 
+                <a href="mailto:info@sproghjælp.dk">info@sproghjælp.dk</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById("fixForm");
+    
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+    
+            const textInput = document.getElementById("text-editor");
+            const fileInput = document.querySelector("input[type='file']");
+    
+            // Check if the contenteditable div is empty
+            if (!textInput.innerText.trim()) {
+                textInput.innerText = ""; 
+                textInput.setAttribute("placeholder", "Indsæt din tekst her");
+                textInput.style.border = "1px solid red"; 
+                return;
+            } else {
+                textInput.setAttribute("placeholder", "Indsæt din tekst her...");
+                textInput.style.border = "1px solid #ccc";
+            }
+    
+            let formData = new FormData();
+            formData.append('text', textInput.innerText); // Send contenteditable text
+            if (fileInput.files[0]) {
+                formData.append('document', fileInput.files[0]); // Include file if present
+            }
+    
+            try {
+                const response = await fetch("http://127.0.0.1:8000/", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value,
+                    },
+                    body: formData
+                });
+    
+                if (response.ok) {
+                    const data = await response.json();
+    
+                    // Update text editor with corrected text and highlight invalid words
+                    if (data.corrected_text) {
+                        highlightInvalidWords(data.corrected_text, data.invalid_words);
+                    }
+    
+                    // Display the copy button if corrections were made
+                    const copyButton = document.getElementById('copy-btn');
+                    copyButton.style.display = 'inline-block';
+    
+                    // Provide a file download link if available
+                    if (data.file_url) {
+                        const downloadLink = document.createElement("a");
+                        downloadLink.href = data.file_url;
+                        downloadLink.textContent = "Download Corrected Document";
+                        downloadLink.target = "_blank";
+                        document.body.appendChild(downloadLink);
+                    }
+                } else {
+                    const errorData = await response.json();
+                    alert('Error: ' + (errorData.error || 'An error occurred'));
+                }
+            } catch (error) {
+                console.error("Fetch Error:", error);
+                alert("Error: " + error.message);
+            }
+        });
+    
+        function highlightInvalidWords(correctedText, invalidWords) {
+            const textEditor = document.getElementById("text-editor");
+    
+            // Start with corrected text
+            let highlightedText = correctedText;
+    
+            // Sort invalid words by their start position in descending order to avoid offset issues
+            invalidWords.sort((a, b) => b.start - a.start);
+    
+            // Replace invalid words with span elements
+            invalidWords.forEach(({ word, start, end }) => {
+                const wordSpan = `<span class="mistake-highlight">${word}</span>`;
+                highlightedText =
+                    highlightedText.slice(0, start) +
+                    wordSpan +
+                    highlightedText.slice(end);
+            });
+    
+            // Replace the text in the contenteditable div with highlighted content
+            textEditor.innerHTML = highlightedText;
+        }
+    
+        document.getElementById('copy-btn').addEventListener('click', function () {
+            const textEditor = document.getElementById('text-editor');
+            const textToCopy = textEditor.innerText;
+    
+            // Copy text to clipboard
+            navigator.clipboard.writeText(textToCopy).then(function () {
+                const copyButton = document.getElementById('copy-btn');
+                copyButton.textContent = 'Tekst kopieret'; // Change button text
+    
+                setTimeout(function () {
+                    copyButton.textContent = 'Kopier tekst'; // Revert button text after 1 second
+                }, 1000);
+            }).catch(function (err) {
+                console.error("Error copying text:", err);
+            });
+        });
+
+
+
+
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburgerMenu.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+
+    </script>
+</body>
+</html>
