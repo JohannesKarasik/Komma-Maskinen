@@ -62,3 +62,11 @@ def index(request):
         return JsonResponse({'error': 'No text provided'}, status=400)
 
     return render(request, 'fixer/index.html')
+
+# View for the first new page
+def page_one(request):
+    return render(request, 'page_one.html')
+
+# View for the second new page
+def page_two(request):
+    return render(request, 'page_two.html')
