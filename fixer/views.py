@@ -5,6 +5,8 @@ from docx import Document
 from io import BytesIO
 import enchant
 import re
+from . import views  # Ensure views are correctly imported
+
 
 # Initialize the punctfix fixer and Danish dictionary
 fixer = PunctFixer(language="da")
