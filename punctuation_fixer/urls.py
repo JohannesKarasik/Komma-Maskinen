@@ -11,6 +11,8 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('fixer.urls')),  # Include the app-level URLs from the 'fixer' app
+    path('page-one/', views.page_one, name='page_one'),
+    path('page-two/', views.page_two, name='page_two'),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 
 ]
