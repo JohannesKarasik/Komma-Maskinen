@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import StaticSitemap
-
+from . import views  # Import views from the same app
 sitemaps = {
     'static': StaticSitemap,
 }
