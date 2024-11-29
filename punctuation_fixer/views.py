@@ -69,4 +69,4 @@ def page_one(request):
 
 # View for the second new page
 def page_two(request):
-    return render(request, 'page_two.html')
+    return render(request, 'stavekontrol.html')
