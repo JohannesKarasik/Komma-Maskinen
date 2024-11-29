@@ -68,6 +68,4 @@ def index(request):
 def stavekontrol(request):
     return render(request, 'stavekontrol.html')
 
-# View for the second new page
-def page_two(request):
-    return render(request, 'stavekontrol.html')  # Render the correct template
+
