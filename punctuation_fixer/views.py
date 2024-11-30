@@ -65,11 +65,7 @@ def index(request):
 
     return render(request, 'fixer/index.html')
 
-# View for the first new page
-def page_one(request):
-    return render(request, 'page_one.html')
-
 # View for the second new page
-def page_two(request):
-    return render(request, 'stavekontrol.html')
+def stavekontrol(request):
+    return render(request, 'stavekontrol.html'
 
