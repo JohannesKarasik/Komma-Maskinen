@@ -68,5 +68,5 @@ def index(request):
 
 # View for the second new page
 def stavekontrol(request):
-    return render(request, 'stavekontrol.html'
+    return render(request, 'stavekontrol.html')
 
