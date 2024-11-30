@@ -5,8 +5,6 @@ from docx import Document
 from io import BytesIO
 import enchant
 import re
-from . import views  # Ensure views are correctly imported
-
 
 # Initialize the punctfix fixer and Danish dictionary
 fixer = PunctFixer(language="da")
@@ -56,9 +54,11 @@ def index(request):
                 
                 start_index += len(word) + 1  # Add 1 for the space
 
+            # Add error count to the response
             return JsonResponse({
                 'corrected_text': corrected_text,
-                'invalid_words': invalid_words
+                'invalid_words': invalid_words,
+                'error_count': len(invalid_words),  # Include error count
             })
 
         return JsonResponse({'error': 'No text provided'}, status=400)
@@ -66,6 +66,10 @@ def index(request):
     return render(request, 'fixer/index.html')
 
 # View for the first new page
-def stavekontrol(request):
+def page_one(request):
+    return render(request, 'page_one.html')
+
+# View for the second new page
+def page_two(request):
     return render(request, 'stavekontrol.html')
 
