@@ -1,0 +1,9 @@
+[0;1;31m×[0m gunicorn.service - gunicorn daemon
+     Loaded: loaded (]8;;file://Komma-Maskinen-Droplet/etc/systemd/system/gunicorn.service/etc/systemd/system/gunicorn.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Sat 2024-11-30 04:31:36 UTC; 20s ago
+   Duration: 9ms
+ Invocation: 4021d070d11c4ca18a6e85a111c20001
+    Process: 142749 ExecStart=/home/clinton/Komma-Maskinen/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/clinton/punctuation_fixer.sock punctuation_fixer.wsgi:application [0;1;31m(code=exited, status=203/EXEC)[0m
+   Main PID: 142749 (code=exited, status=203/EXEC)
+   Mem peak: 1.5M
+        CPU: 6ms
