@@ -249,8 +249,9 @@
 
     <!-- Header Section -->
     <header>
-        <img src="{% static 'images/dansklogo.png' %}" alt="DanskHjælp Logo" style="width: 300px; height: auto;">  
-              <button class="hamburger-menu" aria-label="Toggle navigation">&#9776;</button>
+        <a href="{% url 'home' %}">
+            <img src="{% static 'images/dansklogo.png' %}" alt="Logo">
+        </a>              <button class="hamburger-menu" aria-label="Toggle navigation">&#9776;</button>
         <nav class="nav-links">
             <ul>
                 <li><a style="color: white;" href="{% url 'home' %}">DanskHjælp</a></li>
