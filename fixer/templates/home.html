@@ -1,1 +1,347 @@
+{% load static %}
 
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>DanskHjælp - Ret Stavefejl og Grammatik | Skriv Fejlfrit og Professionelt</title>
+    <meta name="description" content="DanskHjælp er dit værktøj til fejlfri skrivning. Ret stavefejl, kommatering og grammatik hurtigt og nemt. Brug DanskHjælps skriveassistent til at få perfekte tekster hver gang!">
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        .hamburger-menu {
+            font-size: 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            background-color: #057e6f;
+            border-radius: 5px;
+            padding-bottom: 2px;
+            padding-left: 4px;
+            padding-right: 4px;
+
+        }
+
+        .nav-links {
+            font-family: inter !important;
+            display: none;
+            flex-direction: column;
+            background-color: #057e6f;
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 200px;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            padding: 10px 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 500px;
+            background-image: url("{% static 'images/imagehome.jpg' %}");
+            background-size: cover;
+            background-position: bottom;
+            color: white;
+            text-align: center;
+            background-attachment: fixed; /* Creates the parallax effect */
+
+        }
+
+        .herotitle{
+            font-size: 65.2px !important;
+            font-family: inter !important ;
+            line-height: 78.24px !important;
+            letter-spacing: -2.5px !important;
+            font-weight: 700 !important;
+            padding-left: 90px;
+            padding-right: 90px;
+        }
+
+        .linkp{
+            font-family: inter !important;
+            font-size: 16.3px;
+            font-weight: 600;
+            letter-spacing: -0.1px;
+            line-height: 22.82px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .hero-content a {
+            background-color: #057e6f;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .bodytext {
+            color: #181a1f;
+            font-family: inter;
+            font-size: 20.375px; /* Slightly larger for better readability */
+            font-weight: 400px;
+            line-height: 28.525px;
+            letter-spacing: -0.028px;
+            margin-bottom: 10px;
+     
+        }
+
+        .bodytextbox{
+            gap: 10px;
+        }
+
+        .h2title{
+            margin-bottom: 10px;
+        }
+
+        .keywords1{
+            color: #057e6f !important;
+        }
+
+
+        .bodytext1 {
+
+            font-family: inter;
+            font-size: 20.375px; /* Slightly larger for better readability */
+            font-weight: 400px;
+            line-height: 28.525px;
+            padding-right: 100px;
+            letter-spacing: -0.028px;
+            padding-left: 150px;
+            padding-right: 150px;
+     
+        }
+
+
+        .hero-content a:hover {
+            background-color: #055f55;
+        }
+
+        /* Footer Section */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #057e6f;
+            color: white;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header img {
+                width: 120px;
+            }
+
+            .hero h1 {
+                font-size: 1.8em;
+            }
+
+
+                    @media (max-width: 768px) {
+            .text-image-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .text-image-section > div {
+                padding: 0;
+                margin-bottom: 20px;
+            }
+
+            .text-image-section img {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <img src="{% static 'images/dansklogo.png' %}" alt="DanskHjælp Logo" style="width: 300px; height: auto;">  
+              <button class="hamburger-menu" aria-label="Toggle navigation">&#9776;</button>
+        <nav class="nav-links">
+            <ul>
+                <li><a style="color: white;" href="{% url 'index' %}">Kommaretter</a></li>
+                <li><a style="color: white;" href="{% url 'stavekontrol' %}">Stavekontrol</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="herotitle">DanskHjælp: Din løsning til fejlfri skrivning</h1>
+        <p class="bodytext1">Ret stavefejl, kommatering og grammatik hurtigt og nemt med DanskHjælp. Vores værktøj hjælper dig med at sikre fejlfri og professionelle tekster hver gang. Brug DanskHjælp gratis og oplev forskellen i dag</p>
+        <a class="linkp" href="{% url 'index' %}">Brug vores program, helt gratis</a>
+     </div>
+</div>
+
+
+
+<!-- Text and Image Section -->
+<!-- Text and Image Section 1 -->
+<div class="text-image-section" style="display: flex; align-items: center; justify-content: space-between; padding: 40px 20px; max-width: 1200px; margin: 40px auto;">
+    <!-- Text Section -->
+    <div style="flex: 1; padding-right: 20px;">
+        <h2 style="margin-right: 100px;" class="h2title">Hvorfor vælge DanskHjælp?</h2>
+        <div style="margin-right: 100px;" class="bodytextbox">
+            <p class="bodytext">
+                Med <span class="keywords1">DanskHjælp</span> kan du nemt og hurtigt rette stavefejl, grammatik og kommatering i din tekst.
+                Uanset om det er en e-mail, opgave eller artikel, sikrer vores værktøj, at din tekst fremstår professionel og fejlfri.
+            </p>
+            <p class="bodytext">
+                Vores intuitive platform gør det nemt for alle at forbedre deres skrivning. Prøv <span class="keywords1">DanskHjælp</span> i dag og oplev forskellen!
+            </p>
+        </div>
+    </div>
+    <!-- Image Section -->
+    <div style="flex: 1; text-align: right;">
+        <img src="{% static 'images/imagetext.jpg' %}" alt="DanskHjælp Illustration" style="max-width: 100%; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    </div>
+</div>
+
+<!-- Text and Image Section 2 -->
+<div class="text-image-section" style="display: flex; align-items: center; justify-content: space-between; padding: 40px 20px; max-width: 1200px; margin: 40px auto;">
+    <!-- Image Section -->
+    <div style="flex: 1; text-align: left;">
+        <img src="{% static 'images/people.jpg' %}" alt="DanskHjælp Illustration" style="max-width: 100%; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+    </div>
+    <!-- Text Section -->
+    <div style="flex: 1; padding-left: 20px;">
+        <h2 style="padding-left: 100px" class="h2title">Hvorfor er DanskHjælp bedre end andre tekstprogrammer?</h2>
+        <div style="padding-left: 100px" class="bodytextbox">
+            <p class="bodytext">
+                <span class="keywords1">DanskHjælp</span> skiller sig ud ved at være helt gratis og samtidig anvende avanceret NLP-teknologi (Natural Language Processing) til at analysere og rette din tekst. 
+                Vores algoritme sikrer præcis og intelligent rettelse af stavefejl, grammatik og kommatering, så din tekst altid fremstår fejlfri og professionel.
+            </p>
+            <p class="bodytext">
+                Uanset om du arbejder på en opgave, en e-mail eller en artikel, tilbyder <span class="keywords1">DanskHjælp</span> en løsning, der kombinerer banebrydende teknologi med brugervenlighed – og alt dette uden omkostninger. 
+                Brug <span class="keywords1">DanskHjælp</span> gratis i dag og oplev forskellen!
+            </p>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+
+    <!-- Image Section -->
+
+</div>
+
+
+
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 DanskHjælp. Alle rettigheder forbeholdes. Kontakt os: <a href="mailto:info@danskhjaelp.dk">info@danskhjaelp.dk</a></p>
+    </footer>
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburgerMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
