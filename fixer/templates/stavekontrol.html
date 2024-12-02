@@ -419,8 +419,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- Header Section with Logo on the Left -->
     <header>
-        <img src="{% static 'images/dansklogo.png' %}" alt="Logo">
-        <button class="hamburger-menu" aria-label="Toggle navigation">
+      <a href="{% url 'home' %}">
+          <img src="{% static 'images/dansklogo.png' %}" alt="Logo">
+      </a>      
+      <button class="hamburger-menu" aria-label="Toggle navigation">
             &#9776;
         </button>
         <nav class="nav-links">
