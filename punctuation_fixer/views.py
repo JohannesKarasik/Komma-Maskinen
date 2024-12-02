@@ -69,3 +69,6 @@ def index(request):
 def stavekontrol(request):
     return render(request, 'stavekontrol.html')
 
+def home(request):
+    return render(request, 'home.html')  # Make sure 'blogpost.html' is in the templates folder
+
