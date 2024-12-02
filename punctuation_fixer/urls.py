@@ -14,5 +14,7 @@ urlpatterns = [
     path('', include('fixer.urls')),  # Include the app-level URLs from the 'fixer' app
     path('stavekontrol/', views.stavekontrol, name='stavekontrol'),  # Add this line
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('home/', views.home, name='home'),  # Corrected line
+
 
 ]
