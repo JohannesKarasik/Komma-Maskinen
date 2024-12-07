@@ -72,3 +72,7 @@ def stavekontrol(request):
 def home(request):
     return render(request, 'home.html')  # Make sure 'blogpost.html' is in the templates folder
 
+
+def policy(request):
+    return render(request, 'policy.html')  # Ensure 'blogpost.html' is in the templates folder
+
